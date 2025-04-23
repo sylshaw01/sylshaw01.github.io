@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syl Shaw | Theoretical Condensed Matter Physics</title>
+    <style>
+        :root {
+            --primary: #2e7d32;
+            --secondary: #8bc34a;
+            --accent: #f0e6f6;
+            --dark: #263238;
+            --light: #fafafa;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo svg {
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 5px;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: white;
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        .mobile-menu {
+            display: none;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: url('./img/quantumWorld.jpg') center/cover no-repeat;
+            position: relative;
+            margin-top: 60px;
+        }
+        
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 2rem;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .hero-content:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /*background: url('./img/quantumWorld.jpg') center/cover no-repeat;*/
+            z-index: -1;
+            opacity: 0.25;
+            border-radius: 15px;
+            filter: brightness(0.7);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            color: white;
+            max-width: 600px;
+            border-radius: 15px;
+            padding: 2rem;
+            background: rgba(0,0,0,0.3);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            backdrop-filter: blur(4px);
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: var(--transition);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn:hover {
+            background-color: transparent;
+            color: white;
+        }
+        
+        /* About Section */
+        .about {
+            padding: 5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: var(--primary);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary);
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        .about-img {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Research Section */
+        .research {
+            padding: 5rem 0;
+            background-color: var(--accent);
+        }
+        
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        
+        .research-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+        
+        .research-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .research-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .research-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .research-card:hover .research-img img {
+            transform: scale(1.1);
+        }
+        
+        .research-info {
+            padding: 1.5rem;
+        }
+        
+        .research-info h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        /* Publications Section */
+        .publications {
+            padding: 5rem 0;
+        }
+        
+        .publication-item {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .publication-item:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .publication-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .publication-authors {
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+        
+        .publication-journal {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: var(--transition);
+            border: 2px solid var(--secondary);
+            margin-top: 1rem;
+        }
+        
+        .download-btn:hover {
+            background-color: transparent;
+            color: var(--secondary);
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 5rem 0;
+            background-color: var(--accent);
+            position: relative;
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .contact-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .contact-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .contact-card h3 {
+            margin-bottom: 1rem;
+        }
+        
+        .flower-decoration {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .flower-top-right {
+            top: -150px;
+            right: -150px;
+        }
+        
+        .flower-bottom-left {
+            bottom: -150px;
+            left: -150px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .social-links {
+            margin-bottom: 1rem;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px;
+            color: var(--light);
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links li {
+            margin: 0 15px;
+        }
+        
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 60px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 60px);
+                background-color: var(--primary);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: var(--transition);
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 1.5rem 0;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate {
+            animation: fadeIn 1s ease forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="3" fill="white"/>
+                        <path d="M12 5V3" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M12 21V19" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M5 12H3" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M21 12H19" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M7.05025 7.05029L5.63604 5.63608" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M18.364 18.364L16.9497 16.9498" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M7.05025 16.9498L5.63604 18.364" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M18.364 5.63608L16.9497 7.05029" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    Syl Shaw
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#research">Research</a></li>
+                    <li><a href="#publications">Publications</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="mobile-menu">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 12H21" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M3 6H21" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M3 18H21" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content animate">
+                <h1>Exploring the Quantum World</h1>
+                <p>PhD Candidate in Theoretical Condensed Matter Physics at University of Warwick</p>
+                <a href="#about" class="btn">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-img animate delay-1">
+                    <img src="./img/profileforwebsite.png" alt="Syl Shaw">
+                </div>
+                <div class="about-text animate delay-2">
+                    <h3>Hello, I'm Syl Shaw</h3>
+                    <p>I am a second-year PhD student in Theoretical Condensed Matter Physics at the University of Warwick. My research focuses on topological matter, quantum-Hall effects and phase transitions.</p>
+                    <p>My recent work involved calculating the localisation critical exponent of the quantum Hall transition using a real-space renormalisation group approach, and I am currently working on real-space approaches to topological matter.</p>
+
+                    <a href="./doc/CV_SylShaw_April25.pdf" target="_blank" class="btn">Download CV</a>
+                </div>
+            </div>
+        </div>
+        <!-- Decorative elements -->
+        <svg class="flower-decoration flower-top-right" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50,20 C60,10 70,15 75,25 C85,15 95,20 95,35 C95,50 85,55 75,50 C80,60 75,70 60,75 C45,80 35,70 40,60 C30,65 20,60 25,45 C30,30 40,25 50,30 C45,20 40,30 50,20 Z" fill="currentColor"/>
+        </svg>
+    </section>
+
+    <!-- Research Section -->
+    <section class="research" id="research">
+        <div class="container">
+            <h2 class="section-title">Current Research</h2>
+            <div class="research-grid">
+                <div class="research-card animate">
+                    <div class="research-img">
+                        <img src="./img/singlecell.png" alt="Quantum Hall Transition">
+                    </div>
+                    <div class="research-info">
+                        <h3>Quantum Hall Transition</h3>
+                        <p>Investigating the critical exponent of the quantum Hall transition using a real-space renormalisation approach to the Chalker-Coddington model and extensions thereof.</p>
+                    </div>
+                </div>
+                <div class="research-card animate delay-1">
+                    <div class="research-img">
+                        <img src="./img/lieblattice.png" alt="Numerical Methods">
+                    </div>
+                    <div class="research-info">
+                        <h3>Topology of Lieb lattices</h3>
+                        <p>Understanding how 2D and 3D Lieb lattices can host novel topological states. We examine the topology in real-space both with and without disorder.</p>                  </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Publications Section -->
+    <section class="publications" id="publications">
+        <div class="container">
+            <h2 class="section-title">Publications & Presentations</h2>
+            <div class="publication-item animate">
+                <h3 class="publication-title">Real-space renormalisation approach to the Chalker-Coddington model revisited: improved statistics</h3>
+                <p class="publication-authors">Shaw, S., Römer, R. A.</p>
+                <p class="publication-journal">Physica E</p>
+                <p>We compute the critical exponent of the quantum Hall transition with increased computational power, leading to results further in agreement with leading theory.</p>
+                <a href="./doc/RSRG2025PhysicaESylShaw.pdf" class="download-btn" target="_blank">Download PDF</a>
+            </div>
+            <div class="publication-item animate delay-1">
+                <h3 class="publication-title">Time-reversal invariant Chalker-Coddington model and the real-space renormalisation group</h3>
+                <p class="publication-authors">Shaw, S., Römer, R. A.</p>
+                <p class="publication-journal">Presented talk at the 2025 spring DPG meeting</p>
+                <p>We extend the real-space renormalisation group approach to include time-reveral invariance and compare results to recent literature.</p>
+                <a href="./doc/DPG25_CCRG_CCTRI_Talk.pdf" class="download-btn" target="_blank">Download PDF</a>
+            </div>
+            <div class="publication-item animate delay-2">
+                <h3 class="publication-title">Real-Space Renormalisation Group Approach to Extensions of the Chalker-Coddington Model</h3>
+                <p class="publication-authors">Syl Shaw</p>
+                <p class="publication-journal">MSc Thesis</p>
+                <p>We investigate multiple extensions to the Chalker-Coddington model and the effects they have on the localisation critical exponent.</p>
+                <a href="./doc/MScThesisSylShaw.pdf" class="download-btn" target="_blank">Download PDF</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-info">
+                <div class="contact-card animate">
+                    <div class="contact-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22 12H18L15 21L9 3L6 12H2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>Department</h3>
+                    <p>Department of Physics</p>
+                    <p>University of Warwick</p>
+                    <p>Gibbet Hill Road</p>
+                    <p>Coventry, CV4 7AL, UK</p>
+                </div>
+                <div class="contact-card animate delay-1">
+                    <div class="contact-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M22 6L12 13L2 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>Email</h3>
+                    <p>syl.shaw@warwick.ac.uk</p>
+                </div>
+                <div class="contact-card animate delay-2">
+                    <div class="contact-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M9 11C11.2091 11 13 9.20914 13 7C13 4.79086 11.2091 3 9 3C6.79086 3 5 4.79086 5 7C5 9.20914 6.79086 11 9 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 3.13C16.8604 3.35031 17.623 3.85071 18.1676 4.55232C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89318 18.7122 8.75608 18.1676 9.45769C17.623 10.1593 16.8604 10.6597 16 10.88" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3></h3>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <!-- Decorative elements -->
+        <svg class="flower-decoration flower-bottom-left" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50,20 C60,10 70,15 75,25 C85,15 95,20 95,35 C95,50 85,55 75,50 C80,60 75,70 60,75 C45,80 35,70 40,60 C30,65 20,60 25,45 C30,30 40,25 50,30 C45,20 40,30 50,20 Z" fill="currentColor"/>
+        </svg>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/sylshaw01/" aria-label="LinkedIn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 8C17.5913 8 19.1174 8.63214 20.2426 9.75736C21.3679 10.8826 22 12.4087 22 14V21H18V14C18 13.4696 17.7893 12.9609 17.4142 12.5858C17.0391 12.2107 16.5304 12 16 12C15.4696 12 14.9609 12.2107 14.5858 12.5858C14.2107 12.9609 14 13.4696 14 14V21H10V14C10 12.4087 10.6321 10.8826 11.7574 9.75736C12.8826 8.63214 14.4087 8 16 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M6 9H2V21H6V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M4 6C5.10457 6 6 5.10457 6 4C6 2.89543 5.10457 2 4 2C2.89543 2 2 2.89543 2 4C2 5.10457 2.89543 6 4 6Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+                <a href="https://github.com/sylshaw01" aria-label="GitHub">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 19C4.7 20.4 4.7 16.5 3 16M15 21V17.5C15 16.5 15.1 16.1 14.5 15.5C17.3 15.2 20 14.1 20 9.49995C19.9988 8.30492 19.5325 7.15726 18.7 6.29995C19.0905 5.26265 19.0545 4.11918 18.6 3.09995C18.6 3.09995 17.5 2.79995 15.1 4.39995C13.0672 3.87054 10.9328 3.87054 8.9 4.39995C6.5 2.79995 5.4 3.09995 5.4 3.09995C4.9455 4.11918 4.9095 5.26265 5.3 6.29995C4.46745 7.15726 4.00122 8.30492 4 9.49995C4 14.1 6.7 15.2 9.5 15.5C8.9 16.1 8.9 16.7 9 17.5V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
